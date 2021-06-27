@@ -2,6 +2,7 @@ load "Player.rb"
 load "World.rb"
 load "Printer.rb"
 
+#Represents a game session
 class Game
     def initialize
         @player = Player.new
@@ -10,6 +11,7 @@ class Game
         gen_curr_room
     end
 
+    #Starts the game
     def play
         @printer.loading_animation(5)
         @printer.pretty_print("You woke up in the middle of a dingy, dark room. You have no idea where you are or who you are. A simple wooden sword lies beside you. You pick it up and start your adventure!")
@@ -21,6 +23,7 @@ class Game
 
     private
 
+    #Returns a string with all moves that player can make
     def available_moves
         res = "Available moves:"
         res += " north" if @player.y_coord > 0
@@ -29,15 +32,18 @@ class Game
         res += " east" if @player.x_coord < @world.width - 1
     end
 
+    #Gets current room based on player's coordinates
     def gen_curr_room
         @curr_room = @world.gen_room(@player.x_coord, @player.y_coord)
     end
 
+    #Prints room description and starts combat if a monster is in the room
     def handle_room
         @printer.pretty_print(@curr_room.to_s)
         combat(@curr_room.content) if @curr_room.content.is_a?(Monster) and @curr_room.content.alive?
     end
 
+    #Handles the combat algorithm
     def combat(c)
         @printer.pretty_print("Sudennly a monster attacks you!")
         
@@ -59,10 +65,12 @@ class Game
         end
     end
 
+    #Parses imput from the player
     def take_input
         return gets.strip.split(" ")
     end
 
+    #Interprets input from the player
     def process_input(s)
         case s[0]
         when "help"

@@ -1,8 +1,10 @@
+#Handles 'cinematic' printing with given delay
 class Printer
     def initialize(delay = 0.02) 
         @delay = delay
     end
 
+    #Prints given string character by character
     def pretty_print(str)
         str.each_char do |c|
             sleep @delay
@@ -11,6 +13,7 @@ class Printer
         puts
     end
 
+    #Simple loading animation
     def loading_animation(s, fps=5)
         chars = ["|", "/", "-" ,"\\"]
         delay = 1.0 / fps

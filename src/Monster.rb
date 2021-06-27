@@ -8,6 +8,7 @@ class Monster
         super(@@max_hp)
     end
 
+    #Returns monster's description
     def to_s()
         return "Loathsome humanoid with rubbery skin, hoof-like feet and long claws.\n" + self.health_status
     end

@@ -1,13 +1,16 @@
 load "Creature.rb"
 load "Item.rb"
 
+#Represents player's character
 class Player
     include Creature
     @@max_hp = 100
     @@dice_amount = 1
     @@dice_sides = 6
 
+    #Represent current position of given player on the map
     attr_accessor :x_coord, :y_coord
+    #Holds items collected by the player
     attr_reader :inv
 
     def initialize
@@ -17,15 +20,18 @@ class Player
         @y_coord = 0
     end
 
+    #Adds item to the inventory
     def add_to_inv(item)
         @inv.push(item)
     end
 
+    #Removes item at given index from the inventory
     def remove_from_inv(index)
         return if index < 0
         @inv.delete_at(index)
     end
 
+    #Returns a string with player stats and inventory
     def to_s
         return "Despite everything, it's still you.\n\n" +
 
@@ -39,6 +45,7 @@ class Player
 
     private
 
+    #Returns a string that lists player inventory
     def inv_to_str
         res = "Inventory:\n"
         @inv.each_with_index {|x, i| res+= "#{i}. #{(x.respond_to?(:name) && x.name || x)}\n"}

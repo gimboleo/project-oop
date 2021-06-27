@@ -1,7 +1,9 @@
 load "Monster.rb"
 load "Item.rb"
 
+#Represents a single room
 class Room
+    #Holds an item / a monster
     attr_accessor :content
 
     @@key_exists = false
@@ -12,12 +14,14 @@ class Room
         @desc = Room.gen_description
     end
 
+    #Returns room description
     def to_s
         return @desc
     end
 
     private 
 
+    #Generates random content of the room
     def self.gen_content
         res = [Monster, Potion, Sword, *(Key unless @@key_exists), *(Door unless @@door_exists)].sample.new
         @@key_exists = true if res.is_a?(Key)
@@ -25,6 +29,7 @@ class Room
         return res
     end
 
+    #Generates random description of the room
     def self.gen_description
         return File.readlines("room.desc").sample.strip
     end

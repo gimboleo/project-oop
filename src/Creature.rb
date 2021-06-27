@@ -1,5 +1,6 @@
 load "Dice.rb"
 
+#Template for combatable living beings, including the player
 module Creature
     @@default_values =
     {
@@ -8,6 +9,7 @@ module Creature
         dice_sides: 4
     }
 
+    #Represents creature's stats
     attr_reader :hp, :ap, :max_hp
 
     def initialize(max_hp = @@default_values[:max_hp], d_a = @@default_values[:dice_amount], d_s = @@default_values[:dice_sides])
@@ -16,18 +18,22 @@ module Creature
         @ap = Dice.new(d_a, d_s)
     end
 
+    #Returns true if creature is alive, false otherwise
     def alive?
         return @hp > 0
     end
 
+    #Deals damage to creature
     def dmg(amount)
         @hp -= amount
     end
 
+    #Heals creature
     def heal(amount)
         @hp = [@hp + amount, @max_hp].min
     end
 
+    #Returns various descriptions depending on creature's health level
     def health_status
         val = @hp.to_f / @max_hp.to_f
 
