@@ -13,7 +13,7 @@ class Dice
     end
 
     def to_s
-        str = "#{@amount}k#{@die}"
+        str = "#{@amount}d#{@die}"
         str += "+#{@bonus}" unless @bonus == 0
         return str
     end

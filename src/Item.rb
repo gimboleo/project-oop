@@ -1,6 +1,3 @@
-#load "Player.rb"
-#load "Printer.rb"
-
 module Item
     @@default_values =
     {
@@ -8,7 +5,7 @@ module Item
         desc: "An item. You have no idea what it does."
     }
 
-    attr_accessor :name, :description
+    #attr_accessor :name, :description
 
     def initialize(name = @@default_values[:name], desc = @@default_values[:desc])
         @name = name
@@ -78,10 +75,6 @@ class Door
         super("Door", "Your way outta here!")
     end
 
-    def has_key?(player)
-        return player.inv.any? {|item| item.is_a?(Key)}
-    end
-
     def interact(player)
         return true, "You managed to open the door!" if has_key?(player)
         return false, "You need to find the key first!"
@@ -89,5 +82,11 @@ class Door
 
     def use_item(player, index = -1)
         return "Not sure how you managed to pick up a door. Congratulations I guess."
+    end
+
+    private
+
+    def has_key?(player)
+        return player.inv.any? {|item| item.is_a?(Key)}
     end
 end

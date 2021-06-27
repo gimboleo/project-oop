@@ -10,6 +10,17 @@ class Game
         gen_curr_room
     end
 
+    def play
+        @printer.loading_animation(5)
+        @printer.pretty_print("You woke up in the middle of a dingy, dark room. You have no idea where you are or who you are. A simple wooden sword lies beside you. You pick it up and start your adventure!")
+        handle_room
+        while true
+            process_input(take_input)
+        end
+    end
+
+    private
+
     def available_moves
         res = "Available moves:"
         res += " north" if @player.y_coord > 0
@@ -27,15 +38,15 @@ class Game
         combat(@curr_room.content) if @curr_room.content.is_a?(Monster) and @curr_room.content.alive?
     end
 
-    def combat(creature)
+    def combat(c)
         @printer.pretty_print("Sudennly a monster attacks you!")
         
         while @player.alive?
             roll = @player.ap.roll
-            creature.dmg(roll)
-            @printer.pretty_print("You hit the creature, dealing #{roll} damage." + "\n" + creature.health_status)
-            break unless creature.alive?
-            roll = creature.ap.roll
+            c.dmg(roll)
+            @printer.pretty_print("You hit the creature, dealing #{roll} damage." + "\n" + c.health_status)
+            break unless c.alive?
+            roll = c.ap.roll
             @player.dmg(roll)
             @printer.pretty_print("The creature attacks, dealing #{roll} damage. You have #{@player.hp} HP.")
         end
@@ -119,17 +130,6 @@ class Game
             end
         when "quit"
             exit 0
-        end
-    end
-
-    def play
-        @printer.loading_animation(5)
-        @printer.pretty_print("You woke up in the middle of a dingy, dark room. You have no idea where you are or who you are. A simple wooden sword lies beside you. You pick it up and start your adventure!")
-        while true
-            handle_room
-            while true
-                process_input(take_input)
-            end
         end
     end
 end

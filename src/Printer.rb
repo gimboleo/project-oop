@@ -11,11 +11,11 @@ class Printer
         puts
     end
 
-    def loading_animation(seconds, fps=5)
+    def loading_animation(s, fps=5)
         chars = ["|", "/", "-" ,"\\"]
         delay = 1.0 / fps
 
-        (seconds * fps).round.times do |i|
+        (s * fps).round.times do |i|
             print chars[i % chars.length]
             sleep delay
             print "\b"
