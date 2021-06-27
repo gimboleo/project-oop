@@ -1,1 +1,7 @@
-help.loc
+help - displays this information
+move [north/east/south/west] - moves the player to another room in a given direction
+status - shows player stats and inventory
+inspect - Shows what item is located in the room
+interact - Interacts with an item located in the room
+use [int] - Uses given item from inventory
+quit - closes the game
