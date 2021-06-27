@@ -26,9 +26,7 @@ class Room
     end
 
     def self.gen_description
-        return ["Room full of odd pillars. Water rushes down from several holes in the ceiling and falls through similar holes in the floor. The floor is damp and looks slippery.", 
-                "This small chamber is a bloody mess. The corpse of an another human lies on the floor, his belly carved out. Bloody, froglike footprints track away from the corpse and into the darkness.", 
-                "You enter a small room and your steps echo. Looking about, you're uncertain why, but then a wall vanishes and reveals an enormous chamber. It's really dark in here."].sample
+        return File.readlines("room.desc").sample.strip
     end
 end
 
